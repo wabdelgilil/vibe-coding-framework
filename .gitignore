@@ -1,0 +1,21 @@
+# OS & Editor Artifacts
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+
+# IDE Directories
+.vscode/
+.idea/
+
+# Temporary / Scratch
+*.tmp
+*.bak
+*.log
