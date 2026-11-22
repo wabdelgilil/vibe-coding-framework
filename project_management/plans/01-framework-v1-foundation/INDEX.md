@@ -1,6 +1,6 @@
 # Initiative 01: Framework v1 Foundation
 
-> **Status:** `[/]` In Progress (Phase 1 Done → Phase 2 Next)  
+> **Status:** `[/]` In Progress (Phases 1–2 Done → Phase 3 Next)  
 > **Parent Radar:** [MASTER_PLAN.md](../../MASTER_PLAN.md)  
 > **Specification:** [SRS.md](../../../SRS.md)  
 

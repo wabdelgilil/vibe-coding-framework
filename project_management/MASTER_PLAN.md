@@ -8,7 +8,7 @@
 
 | ID | Initiative | Priority | Status | Plan Folder |
 | :-: | :--- | :-: | :-: | :--- |
-| **01** | **Framework v1 Foundation (9-Pillar Markdown Tree & 3-Tier Context Memory)** | `P1` | `[/]` In Progress (Phase 1 Done → Phase 2 Next) | [plans/01-framework-v1-foundation/INDEX.md](plans/01-framework-v1-foundation/INDEX.md) |
+| **01** | **Framework v1 Foundation (9-Pillar Markdown Tree & 3-Tier Context Memory)** | `P1` | `[/]` In Progress (Phases 1–2 Done → Phase 3 Next) | [plans/01-framework-v1-foundation/INDEX.md](plans/01-framework-v1-foundation/INDEX.md) |
 
 ---
 
