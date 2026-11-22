@@ -6,12 +6,13 @@
 Compile a lean, always-in-context Tier-0 rules file (strictly **≤ 90 lines / ~800 tokens**) adapted to the target project's AI coding tool(s), guaranteeing on-demand recall of all 9 Pillars without polluting the context window.
 
 ## Mandatory Standards
-1. **Select Native Target Path(s):** Detect the project's AI environment and emit the corresponding file(s):
+1. **Select One Primary Native Target Path (Zero Duplication):** Detect the repository's primary AI tool and emit **one** authoritative Tier-0 file:
    - **Universal / Multi-Agent:** `AGENTS.md`
    - **Antigravity / Gemini:** `GEMINI.md`
    - **Claude Code:** `CLAUDE.md`
    - **Cursor:** `.cursor/rules/governance.mdc` (with `alwaysApply: true`)
    - **GitHub Copilot:** `.github/copilot-instructions.md`
+   - *Secondary Tool Pointer:* If a repo actively uses a second AI tool, emit a 3-line pointer file referencing the primary Tier-0 file instead of duplicating identical copies.
 2. **Tier-0 Payload Template (Copy & Adapt — Keep Strictly ≤ 90 Lines):**
 
 ```markdown
