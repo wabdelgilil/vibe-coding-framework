@@ -1,7 +1,7 @@
 # System Requirements Specification (SRS)
 
 > **Project:** Pure-Markdown AI Engineering Governance Framework (Working Title: `vibe-coding-framework`)  
-> **Version:** 0.1.0 (Foundation Baseline)  
+> **Version:** 1.0.0 (Implemented Baseline)  
 > **Status:** Active Specification  
 
 ---
@@ -56,7 +56,7 @@ Instead of shipping runtime scripts or CLI tools, the framework operates as a **
 
 ```text
 vibe-coding-framework/
-├── INDEX.md                             # Framework Central Hub (to be built in Phase 1)
+├── INDEX.md                             # Framework Central Hub & Execution Router
 ├── README.md                            # Human-facing overview & usage guide
 ├── SRS.md                               # This specification
 ├── .gitignore
