@@ -1,5 +1,10 @@
 # Vibe Coding Governance Framework
 
+<p align="center">
+  <b><a href="README.md">English</a></b> •
+  <a href="README.ar.md">العربية</a>
+</p>
+
 A pure-Markdown, zero-dependency, language-agnostic engineering governance tree for AI-assisted software development. Point any AI coding agent (Antigravity, Cursor, Claude Code, Windsurf, or GitHub Copilot) at [INDEX.md](INDEX.md) to establish strict engineering standards, pre-code planning gates, deterministic quality tooling, living documentation, and hierarchical project management from day one.
 
 **License:** [MIT](LICENSE) | **Entrypoint:** [INDEX.md](INDEX.md) | **Agent Skill:** [SKILL.md](SKILL.md) | **All Prompts:** [QUICK_START_PROMPTS.md](QUICK_START_PROMPTS.md)
