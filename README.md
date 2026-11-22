@@ -15,8 +15,10 @@ A pure-Markdown, zero-dependency, language-agnostic engineering reference tree. 
 ## Repository Map
 
 - [INDEX.md](INDEX.md) — Central Hub and execution router for AI agents.
+- [QUICK_START_PROMPTS.md](QUICK_START_PROMPTS.md) — Ready-to-paste prompts for Greenfield, Brownfield, and PR reviews.
+- [SKILL.md](SKILL.md) — Standard Agent Skill entrypoint for AI coding tools.
 - [SRS.md](SRS.md) — System Requirements Specification for this framework.
-- `01_anti_shortcuts/` through `09_output_blueprints/` — Modular governance Pillars organized as recursive micro-files.
+- `01_anti_shortcuts/` through `09_output_blueprints/` — Modular governance Pillars organized as recursive micro-files with stable Rule IDs.
 - [project_management/MASTER_PLAN.md](project_management/MASTER_PLAN.md) — Active development radar for this repository.
 - [docs/BRAINSTORMING.md](docs/BRAINSTORMING.md) — Original design rationale and decision log.
 

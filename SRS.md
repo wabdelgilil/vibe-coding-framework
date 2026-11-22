@@ -1,7 +1,7 @@
 # System Requirements Specification (SRS)
 
 > **Project:** Pure-Markdown AI Engineering Governance Framework (Working Title: `vibe-coding-framework`)  
-> **Version:** 1.1.0 (Stress-Tested Baseline)  
+> **Version:** 1.2.0 (Rule IDs, Conventional Reviews, Quantitative Audit & CI Gate)  
 > **Status:** Active Specification  
 
 ---

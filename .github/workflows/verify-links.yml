@@ -1,0 +1,72 @@
+name: Verify Markdown Links & File Budgets
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify-framework:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify relative links, line budgets, and 4-part anatomy
+        run: |
+          python3 - <<'EOF'
+          import os, re, sys
+
+          root = os.getcwd()
+          broken, budget_err, anatomy_err = [], [], []
+          total_links = 0
+
+          for dirpath, dirnames, filenames in os.walk(root):
+              dirnames[:] = [d for d in dirnames if d != '.git']
+              for fn in filenames:
+                  if not fn.endswith('.md'):
+                      continue
+                  full = os.path.join(dirpath, fn)
+                  rel = os.path.relpath(full, root).replace('\\', '/')
+                  with open(full, 'r', encoding='utf-8') as f:
+                      raw = f.read()
+                  lines = raw.splitlines()
+                  no_code = re.sub(r'```.*?```', '', raw, flags=re.S)
+
+                  for m in re.finditer(r'\[[^\]]+\]\(([^)#]+)(?:#[^)]+)?\)', no_code):
+                      target = m.group(1).strip()
+                      if target.startswith(('http://', 'https://', 'mailto:')):
+                          continue
+                      total_links += 1
+                      resolved = os.path.normpath(os.path.join(dirpath, target))
+                      if not os.path.exists(resolved):
+                          broken.append(f"{rel} -> {target}")
+
+                  if re.match(r'^0[1-9]_', rel):
+                      if fn == 'README.md' and len(lines) > 35:
+                          budget_err.append(f"Router > 35 lines: {rel} ({len(lines)})")
+                      elif fn != 'README.md' and len(lines) > 120:
+                          budget_err.append(f"Leaf > 120 lines: {rel} ({len(lines)})")
+                      if fn != 'README.md' and not rel.startswith('09_output_blueprints/template_'):
+                          required = [
+                              '## Objective & Scope',
+                              '## Mandatory Standards',
+                              '## Prohibited Anti-Patterns',
+                              '## Verification & Audit Checklist',
+                          ]
+                          if not all(h in raw for h in required):
+                              anatomy_err.append(rel)
+
+          print(f"Checked {total_links} relative links.")
+          if broken:
+              print("Broken links:\n  " + "\n  ".join(broken))
+          if budget_err:
+              print("Budget violations:\n  " + "\n  ".join(budget_err))
+          if anatomy_err:
+              print("Anatomy violations:\n  " + "\n  ".join(anatomy_err))
+
+          if broken or budget_err or anatomy_err:
+              sys.exit(1)
+          print("All framework integrity checks passed.")
+          EOF

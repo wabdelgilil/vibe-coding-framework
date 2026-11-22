@@ -13,14 +13,17 @@ Separate the "Builder" mindset from the "Auditor" mindset before closing any non
    - *Scale & Concurrency:* $N+1$ queries, unbounded lists, race conditions, blocking I/O.
    - *Domain & Regression Impact:* Broken reverse relationships, side effects on adjacent modules, stale caches.
    - *Shortcuts & AI Footprint:* Hardcoded values, suppressed warnings, robotic comments, missing doc updates.
-3. **Fix Before Reporting Done:** Any High or Critical defect discovered during adversarial review MUST be fixed and re-verified before closing the task.
+3. **Conventional Finding Format:** Tag every review finding with its severity label, Rule ID, and file/line reference:
+   - `issue (blocking) [RULE-ID] (<file>:<line>): <summary>` — MUST be fixed and re-verified before closing the task.
+   - `suggestion (non-blocking) [RULE-ID] (<file>:<line>): <summary>` — Log in `TECH_DEBT_REGISTER.md` if deferred.
+4. **Optional Deep-Audit Companion:** If a companion checkpoint catalog (such as `CodeReviewFramework`) is available in the workspace, cross-check applicable domain checkpoints alongside Pillar gates during release or PR audits.
 
 ## Prohibited Anti-Patterns
 - Skimming your own diff with confirmation bias ("looks good to me").
 - Treating unit-test green lights as proof of security or architectural soundness.
-- Deferring Critical or High review findings to "future cleanup" without an approved exemption.
+- Deferring `issue (blocking)` findings to "future cleanup" without an approved exemption.
 
 ## Verification & Audit Checklist
 - [ ] Adversarial pass executed across boundaries, security, scale, domain impact, and shortcuts.
-- [ ] All High/Critical findings resolved and re-verified before closure.
-- [ ] Remaining Low-priority observations logged in `TECH_DEBT_REGISTER.md` (not ignored).
+- [ ] All `issue (blocking)` findings tagged with `[RULE-ID]`, resolved, and re-verified before closure.
+- [ ] Remaining `suggestion (non-blocking)` items logged in `TECH_DEBT_REGISTER.md` (not ignored).

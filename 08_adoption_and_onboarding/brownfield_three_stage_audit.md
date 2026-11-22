@@ -9,10 +9,12 @@ Onboard an existing (legacy or active) codebase safely without breaking producti
 1. **Stage 1 — Non-Destructive Baseline Setup:**
    - Install Tier-0 rules ([agent_rule_adapters.md](../09_output_blueprints/agent_rule_adapters.md)) and `project_management/` (`MASTER_PLAN.md`, `COMPLETED_WORK.md`, `TECH_DEBT_REGISTER.md`, `plans/`, `archive/`).
    - Reverse-document current reality into baseline `SRS.md` and `ARCHITECTURE.md` without modifying application logic.
-2. **Stage 2 — Evidence-Based Diagnostic Audit (1–5 Maturity Rubric):**
+2. **Stage 2 — Evidence-Based Diagnostic Audit (Applicability & Quantitative Scoring):**
    - Audit the codebase against Pillars 01–07 using **Dual Verification** (automated scans + direct reading of critical paths and random samples).
-   - Score each Pillar on a 1–5 CMMI scale: `1 Ad-Hoc`, `2 Repeatable`, `3 Defined`, `4 Managed`, `5 Optimizing`.
-   - Record concrete file-level findings and log deferred issues in `TECH_DEBT_REGISTER.md`.
+   - Mark genuinely inapplicable checks `N/A` (with rationale) so they never distort the score; calculate compliance as `PASS / (Total - N/A) * 100%` alongside 1–5 CMMI maturity (`1 Ad-Hoc` to `5 Optimizing`).
+   - **Hard Release Gate:** Grade `A+` (98–100%), `A` (90–97%), `B` (80–89%), `C` (65–79%), `F` (< 65%). Any Critical `SEC-*` failure forces an automatic **`F (Release Blocked)`** regardless of overall percentage.
+   - *Optional Deep Audit:* If a companion review catalog (e.g., `CodeReviewFramework`) is present, map its applicable checkpoints into the evidence table.
+   - Record concrete file/line findings with `[RULE-ID]` tags and log deferred items in `TECH_DEBT_REGISTER.md`.
 3. **Stage 3 — Dependency-Ordered Wave Remediation:**
    - Group findings into sequential Waves under `project_management/plans/01-modernization/` ordered strictly by risk (`Wave 1: Security & Safety Net Tests` → `Wave 2: Architecture & Data Integrity` → `Wave 3: Scale, Clean Code & Living Docs`).
    - Track progress in `EXECUTION_LOG.md`; verify zero regressions after every wave.
