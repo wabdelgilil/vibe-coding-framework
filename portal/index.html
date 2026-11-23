@@ -9,11 +9,21 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <h1 id="project-title">Project Portal</h1>
-      <span id="mode-badge" class="badge">Connecting...</span>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div class="brand-text">
+        <h1 id="project-title">Project Portal</h1>
+        <div class="brand-meta">
+          <span id="mode-badge" class="badge">Connecting...</span>
+          <span id="git-badge" class="badge hidden"></span>
+          <span id="version-badge" class="badge badge-accent hidden"></span>
+        </div>
+      </div>
     </div>
+
     <div class="topbar-actions">
+      <input id="global-search" class="search-input" type="search" placeholder="Filter..." aria-label="Filter items" />
       <button id="btn-folder" class="btn btn-primary hidden" type="button"></button>
+      <button id="btn-auto" class="btn" type="button" aria-pressed="false"></button>
       <button id="btn-refresh" class="btn" type="button"></button>
       <button id="btn-lang" class="btn" type="button">العربية</button>
       <button id="btn-theme" class="btn" type="button"></button>
@@ -30,6 +40,7 @@
         <button class="nav-item" data-view="docs" type="button"></button>
       </nav>
       <div class="sidebar-footer">
+        <div id="tier0-meter" class="meter-box hidden"></div>
         <div id="sync-meta" class="meta-line"></div>
       </div>
     </aside>
@@ -54,7 +65,9 @@
     </div>
   </div>
 
+  <script src="i18n.js"></script>
   <script src="parser.js"></script>
+  <script src="charts.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
