@@ -32,6 +32,10 @@
     return n;
   }
 
+  const ICON_FOLDER_CLOSED = '<svg class="tree-ico ico-folder" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M1.5 3A1.5 1.5 0 0 1 3 1.5h3.17a1.5 1.5 0 0 1 1.06.44L8.29 3H13a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 13 14H3a1.5 1.5 0 0 1-1.5-1.5V3z"/></svg>';
+  const ICON_FOLDER_OPEN = '<svg class="tree-ico ico-folder-open" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M1.5 3A1.5 1.5 0 0 1 3 1.5h3.17a1.5 1.5 0 0 1 1.06.44L8.29 3H13a1.5 1.5 0 0 1 1.5 1.5V6H3.25a1.25 1.25 0 0 0-1.2.9L1.5 8.8V3zm1.75 4h11.1a.65.65 0 0 1 .62.84l-1.45 4.8A1.5 1.5 0 0 1 12.08 14H2.5a1 1 0 0 1-.96-1.28L3.25 7z"/></svg>';
+  const ICON_FILE = '<svg class="tree-ico" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M3.5 1.5A1.5 1.5 0 0 0 2 3v10a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 14 13V5.41a1.5 1.5 0 0 0-.44-1.06L10.65 1.94A1.5 1.5 0 0 0 9.59 1.5H3.5zM9.5 3v2.5H12L9.5 3z"/></svg>';
+
   function renderTree(nodes, q, linesUnit, openDirs, treeId, isRoot = true) {
     const query = (q || '').trim().toLowerCase();
     const items = (nodes || []).reduce((acc, node) => {
@@ -42,11 +46,13 @@
           const isOpen = query ? true : openDirs.has(dirKey);
           const totalInDir = countFiles(node.children);
           const toggleChar = isOpen ? '−' : '+';
+          const folderIco = isOpen ? ICON_FOLDER_OPEN : ICON_FOLDER_CLOSED;
           acc.push(`
             <li class="tree-node-dir">
               <button class="tree-dir-btn" type="button" data-toggle-dir="${P.escapeHtml(dirKey)}" aria-expanded="${isOpen}">
                 <span class="tree-toggle-box">${toggleChar}</span>
-                <bdi dir="ltr" class="tree-dir-name">${P.escapeHtml(node.name)}/</bdi>
+                ${folderIco}
+                <bdi dir="ltr" class="tree-dir-name">${P.escapeHtml(node.name)}</bdi>
                 <span class="tree-count-pill">${totalInDir}</span>
               </button>
               <div class="tree-children${isOpen ? '' : ' hidden'}">${sub}</div>
@@ -56,13 +62,13 @@
         const overCap = (node.lines || 0) > 450;
         const dotIdx = node.name.lastIndexOf('.');
         const ext = dotIdx > 0 ? node.name.slice(dotIdx + 1).toLowerCase() : 'file';
-        const extBadge = `<span class="ext-pill ext-${P.escapeHtml(ext)}">${P.escapeHtml(ext)}</span>`;
         const lineTag = node.lines ? `<span class="tree-lines nowrap ${overCap ? 'badge badge-danger' : 'mono'}">${node.lines} ${P.escapeHtml(linesUnit)}</span>` : '';
         acc.push(`
           <li class="tree-file-row">
             <button class="tree-file-btn" type="button" data-open-file="${P.escapeHtml(node.path)}">
-              ${extBadge}
+              <span class="ico-file ext-ico-${P.escapeHtml(ext)}">${ICON_FILE}</span>
               <bdi dir="ltr" class="tree-file-name">${P.escapeHtml(node.name)}</bdi>
+              <span class="ext-pill ext-${P.escapeHtml(ext)}">${P.escapeHtml(ext)}</span>
             </button>
             ${lineTag}
           </li>`);

@@ -16,3 +16,12 @@
 [data-theme="light"] .bento-grid .panel:nth-child(2) h3 { color: var(--violet); }
 [data-theme="light"] .data-table th { background: #dbeafe; color: #1e3a8a; }
 [data-theme="light"] .kv-list dt { color: #3730a3; }
+
+.tree-ico { flex-shrink: 0; display: inline-block; vertical-align: middle; }
+.ico-folder { color: var(--warn); }
+.ico-folder-open { color: #eab308; }
+.ico-file { display: inline-flex; color: var(--muted); flex-shrink: 0; }
+.ext-ico-md { color: var(--accent); }
+.ext-ico-js, .ext-ico-mjs, .ext-ico-ts { color: var(--warn); }
+.ext-ico-css, .ext-ico-html { color: var(--ok); }
+.ext-ico-bat, .ext-ico-sh { color: var(--danger); }
