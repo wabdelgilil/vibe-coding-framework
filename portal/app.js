@@ -6,6 +6,9 @@
   const V = window.PortalViews;
   const I18N = window.PortalI18N;
 
+  const MDFULL_URL = 'https://wabdelgilil.github.io/markDownReader/?embed=1';
+  const MDFULL_ORIGIN = 'https://wabdelgilil.github.io';
+
   const state = {
     lang: localStorage.getItem('portal_lang') || 'en',
     theme: localStorage.getItem('portal_theme') || 'light',
@@ -19,6 +22,9 @@
     snapshot: null,
     activeDocPath: null,
     activeRawContent: null,
+    readerEngine: localStorage.getItem('portal_reader') || 'mdfull',
+    mdfullReady: false,
+    pendingMdfullPayload: null,
     openDirs: new Set(['admin:project_management']),
   };
 
@@ -34,7 +40,8 @@
     document.getElementById('btn-refresh').textContent = t('refresh');
     document.getElementById('btn-folder').textContent = t('chooseFolder');
     document.getElementById('drawer-close').textContent = t('close');
-    document.getElementById('drawer-mdfull').textContent = t('openMdfull');
+    document.getElementById('drawer-reader-toggle').textContent =
+      state.readerEngine === 'mdfull' ? t('useBuiltin') : t('openMdfull');
     document.getElementById('global-search').placeholder = t('searchPlaceholder');
 
     const autoBtn = document.getElementById('btn-auto');
@@ -148,11 +155,41 @@
     }
   }
 
-  function showDrawer(title, subtitle, htmlContent, showMdfull = false) {
+  function postToMdfull(payload) {
+    const frame = document.getElementById('mdfull-frame');
+    if (!frame.src) frame.src = MDFULL_URL;
+    state.pendingMdfullPayload = payload;
+    if (state.mdfullReady && frame.contentWindow) {
+      frame.contentWindow.postMessage(payload, MDFULL_ORIGIN);
+    }
+  }
+
+  function showDrawer(title, subtitle, htmlContent, isMarkdown = false) {
+    const frame = document.getElementById('mdfull-frame');
+    const body = document.getElementById('drawer-body');
+    const toggle = document.getElementById('drawer-reader-toggle');
+
     document.getElementById('drawer-title').textContent = title;
     document.getElementById('drawer-path').textContent = subtitle;
-    document.getElementById('drawer-body').innerHTML = htmlContent;
-    document.getElementById('drawer-mdfull').classList.toggle('hidden', !showMdfull);
+    toggle.classList.toggle('hidden', !isMarkdown);
+    toggle.textContent = state.readerEngine === 'mdfull' ? t('useBuiltin') : t('openMdfull');
+
+    const useMdfull = isMarkdown && state.readerEngine === 'mdfull' && navigator.onLine !== false;
+    if (useMdfull) {
+      body.classList.add('hidden');
+      frame.classList.remove('hidden');
+      postToMdfull({
+        type: 'mdfull:load',
+        filename: title,
+        path: subtitle,
+        content: state.activeRawContent || '',
+        theme: state.theme,
+      });
+    } else {
+      frame.classList.add('hidden');
+      body.classList.remove('hidden');
+      body.innerHTML = htmlContent;
+    }
     document.getElementById('reader-drawer').classList.remove('hidden');
   }
 
@@ -331,11 +368,27 @@
     state.activeDocPath = null;
     state.activeRawContent = null;
   };
-  document.getElementById('drawer-mdfull').addEventListener('click', () => {
-    if (state.activeRawContent && navigator.clipboard) {
-      navigator.clipboard.writeText(state.activeRawContent).catch(() => {});
+  document.getElementById('drawer-reader-toggle').addEventListener('click', () => {
+    state.readerEngine = state.readerEngine === 'mdfull' ? 'builtin' : 'mdfull';
+    localStorage.setItem('portal_reader', state.readerEngine);
+    if (state.activeDocPath && state.activeRawContent !== null) {
+      showDrawer(
+        state.activeDocPath.split('/').pop(),
+        state.activeDocPath,
+        P.renderMarkdownToHtml(state.activeRawContent),
+        state.activeDocPath.endsWith('.md'),
+      );
     }
-    window.open('https://wabdelgilil.github.io/markDownReader/', '_blank', 'noopener,noreferrer');
+  });
+  window.addEventListener('message', (event) => {
+    if (event.origin !== MDFULL_ORIGIN) return;
+    if (event.data && event.data.type === 'mdfull:ready') {
+      state.mdfullReady = true;
+      if (state.pendingMdfullPayload) {
+        const frame = document.getElementById('mdfull-frame');
+        if (frame.contentWindow) frame.contentWindow.postMessage(state.pendingMdfullPayload, MDFULL_ORIGIN);
+      }
+    }
   });
   document.getElementById('drawer-close').addEventListener('click', closeDrawer);
   document.getElementById('drawer-backdrop').addEventListener('click', closeDrawer);
