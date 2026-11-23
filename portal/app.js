@@ -18,6 +18,8 @@
     dirHandle: null,
     snapshot: null,
     activeDocPath: null,
+    activeRawContent: null,
+    openDirs: new Set(['admin:project_management']),
   };
 
   const t = (key) => (I18N[state.lang] && I18N[state.lang][key]) || I18N.en[key] || key;
@@ -32,6 +34,7 @@
     document.getElementById('btn-refresh').textContent = t('refresh');
     document.getElementById('btn-folder').textContent = t('chooseFolder');
     document.getElementById('drawer-close').textContent = t('close');
+    document.getElementById('drawer-mdfull').textContent = t('openMdfull');
     document.getElementById('global-search').placeholder = t('searchPlaceholder');
 
     const autoBtn = document.getElementById('btn-auto');
@@ -145,10 +148,11 @@
     }
   }
 
-  function showDrawer(title, subtitle, htmlContent) {
+  function showDrawer(title, subtitle, htmlContent, showMdfull = false) {
     document.getElementById('drawer-title').textContent = title;
     document.getElementById('drawer-path').textContent = subtitle;
     document.getElementById('drawer-body').innerHTML = htmlContent;
+    document.getElementById('drawer-mdfull').classList.toggle('hidden', !showMdfull);
     document.getElementById('reader-drawer').classList.remove('hidden');
   }
 
@@ -163,10 +167,12 @@
     }
     if (content === null) return;
     state.activeDocPath = clean;
-    const html = clean.endsWith('.md')
+    state.activeRawContent = content;
+    const isMd = clean.endsWith('.md');
+    const html = isMd
       ? P.renderMarkdownToHtml(content)
       : `<pre dir="ltr"><code>${P.escapeHtml(content)}</code></pre>`;
-    showDrawer(clean.split('/').pop(), clean, html);
+    showDrawer(clean.split('/').pop(), clean, html, isMd);
   }
 
   async function openDiff(relPath) {
@@ -222,7 +228,42 @@
     else if (state.view === 'memory') root.innerHTML = V.renderMemoryDocs(snap, state, t);
   }
 
+  function collectDirKeys(nodes, prefix, out = []) {
+    for (const n of nodes || []) {
+      if (n.type === 'dir') {
+        out.push(`${prefix}:${n.path}`);
+        collectDirKeys(n.children, prefix, out);
+      }
+    }
+    return out;
+  }
+
   document.addEventListener('click', (e) => {
+    const toggleBtn = e.target.closest('[data-toggle-dir]');
+    if (toggleBtn) {
+      const key = toggleBtn.getAttribute('data-toggle-dir');
+      if (state.openDirs.has(key)) state.openDirs.delete(key);
+      else state.openDirs.add(key);
+      render();
+      return;
+    }
+    const expBtn = e.target.closest('[data-tree-expand]');
+    if (expBtn && state.snapshot) {
+      const id = expBtn.getAttribute('data-tree-expand');
+      const nodes = id === 'admin' ? state.snapshot.trees.adminTree : state.snapshot.trees.archTree;
+      collectDirKeys(nodes, id).forEach((k) => state.openDirs.add(k));
+      render();
+      return;
+    }
+    const colBtn = e.target.closest('[data-tree-collapse]');
+    if (colBtn) {
+      const id = colBtn.getAttribute('data-tree-collapse');
+      for (const k of Array.from(state.openDirs)) {
+        if (k.startsWith(`${id}:`)) state.openDirs.delete(k);
+      }
+      render();
+      return;
+    }
     const fileBtn = e.target.closest('[data-open-file], [data-open-md]');
     if (fileBtn) {
       const raw = fileBtn.getAttribute('data-open-file') || fileBtn.getAttribute('data-open-md');
@@ -288,7 +329,14 @@
   const closeDrawer = () => {
     document.getElementById('reader-drawer').classList.add('hidden');
     state.activeDocPath = null;
+    state.activeRawContent = null;
   };
+  document.getElementById('drawer-mdfull').addEventListener('click', () => {
+    if (state.activeRawContent && navigator.clipboard) {
+      navigator.clipboard.writeText(state.activeRawContent).catch(() => {});
+    }
+    window.open('https://wabdelgilil.github.io/markDownReader/', '_blank', 'noopener,noreferrer');
+  });
   document.getElementById('drawer-close').addEventListener('click', closeDrawer);
   document.getElementById('drawer-backdrop').addEventListener('click', closeDrawer);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });

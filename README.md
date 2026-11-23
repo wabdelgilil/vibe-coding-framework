@@ -86,6 +86,7 @@ Instead of flooding your context window, the framework compiles a **~30-line Tie
 Want a clean visual dashboard for your project's `MASTER_PLAN.md`, `ACTIVE_CONTEXT.md`, hierarchical plan trees, tech debt, and `SRS.md` without spending a single agent token on chat charts?
 - Copy the optional `portal/` folder into your project (isolated from AI agents; zero `npm install` or `node_modules`).
 - Run `portal/start_portal.bat` (Windows) or `./portal/start_portal.sh` (macOS/Linux): it auto-detects Node.js/Python, binds strictly to `127.0.0.1`, or falls back to zero-install direct browser mode (`File System Access API`), saving your preference locally in gitignored `portal/.portal-pref` (pass `--reset` to change).
+- **Companion Markdown Station:** For advanced bilingual (`BiDi` RTL/LTR), KaTeX math, Mermaid diagrams, and export, the portal's built-in reader includes a 1-click bridge to [MDFull](https://wabdelgilil.github.io/markDownReader/) ([GitHub](https://github.com/wabdelgilil/markDownReader)).
 
 ---
 

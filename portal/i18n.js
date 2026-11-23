@@ -66,6 +66,10 @@
       updatedAt: 'Synced:',
       tier0Budget: 'Tier-0 Budget',
       linesUnit: 'L',
+      openMdfull: 'Copy & Open in MDFull',
+      expandAll: '+ Expand All',
+      collapseAll: '- Collapse All',
+      filesCount: 'files',
     },
     ar: {
       radar: 'الرادار الحي',
@@ -131,6 +135,10 @@
       updatedAt: 'آخر مزامنة:',
       tier0Budget: 'ميزانية Tier-0',
       linesUnit: 'سطر',
+      openMdfull: 'نسخ وفتح في MDFull',
+      expandAll: '+ توسيع الكل',
+      collapseAll: '- طيّ الكل',
+      filesCount: 'ملفات',
     },
   };
 })(window);

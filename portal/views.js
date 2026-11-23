@@ -23,18 +23,49 @@
     return 'badge';
   }
 
-  function renderTree(nodes, q, linesUnit, isRoot = true) {
+  function countFiles(nodes) {
+    let n = 0;
+    for (const item of nodes || []) {
+      if (item.type === 'file') n++;
+      else if (item.children) n += countFiles(item.children);
+    }
+    return n;
+  }
+
+  function renderTree(nodes, q, linesUnit, openDirs, treeId, isRoot = true) {
     const query = (q || '').trim().toLowerCase();
     const items = (nodes || []).reduce((acc, node) => {
       if (node.type === 'dir') {
-        const sub = renderTree(node.children, query, linesUnit, false);
+        const sub = renderTree(node.children, query, linesUnit, openDirs, treeId, false);
         if (!query || node.name.toLowerCase().includes(query) || sub.includes('data-open-file')) {
-          acc.push(`<li class="tree-dir">${P.escapeHtml(node.name)}/${sub}</li>`);
+          const dirKey = `${treeId}:${node.path}`;
+          const isOpen = query ? true : openDirs.has(dirKey);
+          const totalInDir = countFiles(node.children);
+          const toggleChar = isOpen ? '−' : '+';
+          acc.push(`
+            <li class="tree-node-dir">
+              <button class="tree-dir-btn" type="button" data-toggle-dir="${P.escapeHtml(dirKey)}" aria-expanded="${isOpen}">
+                <span class="tree-toggle-box">${toggleChar}</span>
+                <span class="tree-dir-name">${P.escapeHtml(node.name)}/</span>
+                <span class="tree-count-pill">${totalInDir}</span>
+              </button>
+              <div class="tree-children${isOpen ? '' : ' hidden'}">${sub}</div>
+            </li>`);
         }
       } else if (!query || node.name.toLowerCase().includes(query) || node.path.toLowerCase().includes(query)) {
         const overCap = (node.lines || 0) > 450;
-        const lineTag = node.lines ? `<span class="tree-lines ${overCap ? 'badge badge-danger' : 'mono'}">${node.lines}${P.escapeHtml(linesUnit)}</span>` : '';
-        acc.push(`<li class="tree-file-row"><button class="tree-link" type="button" data-open-file="${P.escapeHtml(node.path)}">${P.escapeHtml(node.name)}</button>${lineTag}</li>`);
+        const dotIdx = node.name.lastIndexOf('.');
+        const ext = dotIdx > 0 ? node.name.slice(dotIdx + 1).toLowerCase() : '';
+        const extBadge = ext ? `<span class="ext-pill ext-${P.escapeHtml(ext)}">${P.escapeHtml(ext)}</span>` : '';
+        const lineTag = node.lines ? `<span class="tree-lines ${overCap ? 'badge badge-danger' : 'mono'}">${node.lines} ${P.escapeHtml(linesUnit)}</span>` : '';
+        acc.push(`
+          <li class="tree-file-row">
+            <button class="tree-file-btn" type="button" data-open-file="${P.escapeHtml(node.path)}">
+              ${extBadge}
+              <span class="tree-file-name">${P.escapeHtml(node.name)}</span>
+            </button>
+            ${lineTag}
+          </li>`);
       }
       return acc;
     }, []);
@@ -183,16 +214,30 @@
   }
 
   function renderTrees(snap, state, t) {
+    const adminCount = countFiles(snap.trees.adminTree);
+    const archCount = countFiles(snap.trees.archTree);
     return `
       <div class="section-head"><h2>${P.escapeHtml(t('trees'))}</h2></div>
       <div class="bento-grid">
-        <div class="panel">
-          <h3>${P.escapeHtml(t('adminTreeTitle'))}</h3>
-          ${renderTree(snap.trees.adminTree, state.searchQuery, t('linesUnit'))}
+        <div class="panel tree-panel">
+          <div class="panel-head">
+            <h3>${P.escapeHtml(t('adminTreeTitle'))} <span class="badge">${adminCount} ${P.escapeHtml(t('filesCount'))}</span></h3>
+            <div class="tree-toolbar">
+              <button class="btn btn-sm" type="button" data-tree-expand="admin">${P.escapeHtml(t('expandAll'))}</button>
+              <button class="btn btn-sm" type="button" data-tree-collapse="admin">${P.escapeHtml(t('collapseAll'))}</button>
+            </div>
+          </div>
+          ${renderTree(snap.trees.adminTree, state.searchQuery, t('linesUnit'), state.openDirs, 'admin')}
         </div>
-        <div class="panel">
-          <h3>${P.escapeHtml(t('archTreeTitle'))}</h3>
-          ${renderTree(snap.trees.archTree, state.searchQuery, t('linesUnit'))}
+        <div class="panel tree-panel">
+          <div class="panel-head">
+            <h3>${P.escapeHtml(t('archTreeTitle'))} <span class="badge">${archCount} ${P.escapeHtml(t('filesCount'))}</span></h3>
+            <div class="tree-toolbar">
+              <button class="btn btn-sm" type="button" data-tree-expand="arch">${P.escapeHtml(t('expandAll'))}</button>
+              <button class="btn btn-sm" type="button" data-tree-collapse="arch">${P.escapeHtml(t('collapseAll'))}</button>
+            </div>
+          </div>
+          ${renderTree(snap.trees.archTree, state.searchQuery, t('linesUnit'), state.openDirs, 'arch')}
         </div>
       </div>`;
   }
@@ -258,8 +303,8 @@
     return `
       <div class="section-head"><h2>${P.escapeHtml(t('memory'))}</h2></div>
       <div class="bento-grid">
-        <div class="panel"><h3>${P.escapeHtml(t('memoryTitle'))}</h3>${renderTree(snap.trees.memoryTree, state.searchQuery, t('linesUnit'))}</div>
-        <div class="panel"><h3>${P.escapeHtml(t('specsTitle'))}</h3><ul class="tree-group tree-root">${coreLinks}</ul>${renderTree([...(snap.trees.specsTree || []), ...(snap.trees.adrsTree || [])], state.searchQuery, t('linesUnit'))}</div>
+        <div class="panel"><h3>${P.escapeHtml(t('memoryTitle'))}</h3>${renderTree(snap.trees.memoryTree, state.searchQuery, t('linesUnit'), state.openDirs, 'mem')}</div>
+        <div class="panel"><h3>${P.escapeHtml(t('specsTitle'))}</h3><ul class="tree-group tree-root">${coreLinks}</ul>${renderTree([...(snap.trees.specsTree || []), ...(snap.trees.adrsTree || [])], state.searchQuery, t('linesUnit'), state.openDirs, 'specs')}</div>
       </div>
       <div class="panel"><h3>${P.escapeHtml(t('commandsTitle'))}</h3>${scriptsHtml}</div>`;
   }

@@ -86,6 +86,7 @@ Sync this repository's governance setup with the latest version of https://githu
 إذا أردت واجهة ويب نظيفة (عربي/إنجليزي + فاتح/داكن) لمتابعة `MASTER_PLAN.md` و `ACTIVE_CONTEXT.md` وشجرة الخطط والديون التقنية و `SRS.md` بدون استهلاك أي توكن من الـ Agent:
 - انسخ مجلد `portal/` الاختياري إلى مشروعك (معزول تماماً عن الـ Agent، وبصفر `node_modules` أو تثبيت مكتبات).
 - شغّل `portal/start_portal.bat` (على Windows) أو `./portal/start_portal.sh` (على macOS/Linux): يفحص الجهاز تلقائياً ويشغّل خادماً محلياً آمناً على `127.0.0.1`، أو يفتح وضع المتصفح المباشر بدون تثبيت، ويحفظ اختيارك محلياً في `portal/.portal-pref` (المتجاهَل في Git؛ استخدم `--reset` لتغييره).
+- **قارئ Markdown مرافق:** للقراءة المتقدمة ثنائية الاتجاه (`BiDi`) ومعادلات `KaTeX` ومخططات `Mermaid` والتصدير، يحتوي عارض الملفات في البورتال على زر مباشر لفتح أي مستند في [MDFull](https://wabdelgilil.github.io/markDownReader/) ([GitHub](https://github.com/wabdelgilil/markDownReader)).
 
 ---
 
