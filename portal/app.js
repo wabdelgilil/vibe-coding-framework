@@ -11,7 +11,7 @@
 
   const state = {
     lang: localStorage.getItem('portal_lang') || 'en',
-    theme: localStorage.getItem('portal_theme') || 'light',
+    theme: localStorage.getItem('portal_theme') || 'dark',
     view: 'radar',
     mode: window.location.protocol === 'file:' ? 'folder' : 'live',
     autoRefresh: false,
