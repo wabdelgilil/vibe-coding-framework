@@ -37,13 +37,13 @@
   function renderFileSizeBars(files, linesUnit) {
     if (!files || files.length === 0) return '';
     return `<div class="size-list">${files.map((f) => {
-      const pct = Math.min(100, Math.round((f.lines / 500) * 100));
+      const pct = Math.min(100, Math.round((f.lines / 450) * 100));
       const color = f.lines > 450 ? 'var(--danger)' : f.lines > 350 ? 'var(--warn)' : 'var(--accent)';
       return `
         <div class="size-row">
           <div class="size-head">
-            <button class="tree-link" type="button" data-open-file="${esc(f.path)}">${esc(f.path)}</button>
-            <span class="mono ${f.lines > 450 ? 'text-danger' : ''}">${f.lines} ${esc(linesUnit)}</span>
+            <button class="tree-link" type="button" data-open-file="${esc(f.path)}"><bdi dir="ltr">${esc(f.path)}</bdi></button>
+            <span class="mono nowrap ${f.lines > 450 ? 'text-danger' : ''}">${f.lines} ${esc(linesUnit)}</span>
           </div>
           <div class="meter-track"><div class="meter-fill" style="width:${pct}%;background:${color}"></div></div>
         </div>`;

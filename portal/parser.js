@@ -13,7 +13,10 @@
   function stripMarkdown(text) {
     return String(text || '')
       .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-      .replace(/[*_`~]/g, '')
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/__([^_]+)__/g, '$1')
+      .replace(/`([^`]+)`/g, '$1')
+      .replace(/~~([^~]+)~~/g, '$1')
       .trim();
   }
 
@@ -51,10 +54,17 @@
     if (!markdown) return [];
     const items = [];
     const lines = markdown.split(/\r?\n/);
-    for (const line of lines) {
-      const match = line.match(/^\s*-\s+\*\*([^*]+?):\*\*\s*(.*)$/);
+    for (let i = 0; i < lines.length; i++) {
+      const match = lines[i].match(/^\s*-\s+\*\*([^*]+?):\*\*\s*(.*)$/);
       if (match) {
-        items.push({ key: match[1].trim(), value: match[2].trim() });
+        const key = match[1].trim();
+        const parts = [];
+        if (match[2].trim()) parts.push(match[2].trim());
+        while (i + 1 < lines.length && /^\s{2,}-\s+/.test(lines[i + 1])) {
+          i++;
+          parts.push(lines[i].replace(/^\s*-\s+/, '').trim());
+        }
+        items.push({ key, value: parts.join(' | ') || '—' });
       }
     }
     return items;

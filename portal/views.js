@@ -46,7 +46,7 @@
             <li class="tree-node-dir">
               <button class="tree-dir-btn" type="button" data-toggle-dir="${P.escapeHtml(dirKey)}" aria-expanded="${isOpen}">
                 <span class="tree-toggle-box">${toggleChar}</span>
-                <span class="tree-dir-name">${P.escapeHtml(node.name)}/</span>
+                <bdi dir="ltr" class="tree-dir-name">${P.escapeHtml(node.name)}/</bdi>
                 <span class="tree-count-pill">${totalInDir}</span>
               </button>
               <div class="tree-children${isOpen ? '' : ' hidden'}">${sub}</div>
@@ -55,14 +55,14 @@
       } else if (!query || node.name.toLowerCase().includes(query) || node.path.toLowerCase().includes(query)) {
         const overCap = (node.lines || 0) > 450;
         const dotIdx = node.name.lastIndexOf('.');
-        const ext = dotIdx > 0 ? node.name.slice(dotIdx + 1).toLowerCase() : '';
-        const extBadge = ext ? `<span class="ext-pill ext-${P.escapeHtml(ext)}">${P.escapeHtml(ext)}</span>` : '';
-        const lineTag = node.lines ? `<span class="tree-lines ${overCap ? 'badge badge-danger' : 'mono'}">${node.lines} ${P.escapeHtml(linesUnit)}</span>` : '';
+        const ext = dotIdx > 0 ? node.name.slice(dotIdx + 1).toLowerCase() : 'file';
+        const extBadge = `<span class="ext-pill ext-${P.escapeHtml(ext)}">${P.escapeHtml(ext)}</span>`;
+        const lineTag = node.lines ? `<span class="tree-lines nowrap ${overCap ? 'badge badge-danger' : 'mono'}">${node.lines} ${P.escapeHtml(linesUnit)}</span>` : '';
         acc.push(`
           <li class="tree-file-row">
             <button class="tree-file-btn" type="button" data-open-file="${P.escapeHtml(node.path)}">
               ${extBadge}
-              <span class="tree-file-name">${P.escapeHtml(node.name)}</span>
+              <bdi dir="ltr" class="tree-file-name">${P.escapeHtml(node.name)}</bdi>
             </button>
             ${lineTag}
           </li>`);
@@ -86,13 +86,15 @@
     html += '</tr></thead><tbody>';
     for (const row of rows) {
       html += '<tr>';
-      row.forEach((cell) => {
+      row.forEach((cell, idx) => {
         const link = P.extractMarkdownLink(cell);
+        const raw = P.stripMarkdown(cell);
+        const cls = idx === 0 ? ' class="nowrap"' : '';
         if (link && link.target.endsWith('.md')) {
           const full = resolveRelative(baseFile, link.target);
-          html += `<td><button class="tree-link" type="button" data-open-file="${P.escapeHtml(full)}">${P.escapeHtml(link.label)}</button></td>`;
+          html += `<td${cls}><button class="tree-link" type="button" data-open-file="${P.escapeHtml(full)}"><bdi dir="ltr">${P.escapeHtml(link.label)}</bdi></button></td>`;
         } else {
-          html += `<td>${P.escapeHtml(P.stripMarkdown(cell))}</td>`;
+          html += `<td${cls}><bdi dir="auto">${P.escapeHtml(raw)}</bdi></td>`;
         }
       });
       html += '</tr>';
@@ -107,9 +109,9 @@
     return `<ul class="change-list">${changes.map((c) => `
       <li class="change-item">
         <span class="badge ${c.status === 'D' ? 'badge-danger' : c.status === '??' ? 'badge-ok' : 'badge-warn'}">${P.escapeHtml(c.status)}</span>
-        <button class="tree-link" type="button" data-open-diff="${P.escapeHtml(c.path)}">${P.escapeHtml(c.path)}</button>
+        <button class="tree-link" type="button" data-open-diff="${P.escapeHtml(c.path)}"><bdi dir="ltr">${P.escapeHtml(c.path)}</bdi></button>
         ${c.sensitive ? `<span class="badge badge-danger">${P.escapeHtml(t('sensitiveTag'))}</span>` : ''}
-        <span class="diff-nums mono"><span class="num-add">+${c.added}</span> <span class="num-del">-${c.deleted}</span></span>
+        <span class="diff-nums mono nowrap" dir="ltr"><span class="num-add">+${c.added}</span> <span class="num-del">-${c.deleted}</span></span>
       </li>`).join('')}</ul>`;
   }
 
@@ -134,9 +136,11 @@
     const shortcutsHtml = shortcuts.length > 0
       ? `<ul class="shortcut-list">${shortcuts.slice(0, 15).map((s) => `
           <li class="shortcut-item">
-            <span class="badge badge-danger">${P.escapeHtml(s.kind)}</span>
-            <button class="tree-link" type="button" data-open-file="${P.escapeHtml(s.path)}">${P.escapeHtml(s.path)}:${s.line}</button>
-            <code class="snippet">${P.escapeHtml(s.snippet)}</code>
+            <div class="shortcut-head">
+              <span class="badge badge-danger">${P.escapeHtml(s.kind)}</span>
+              <button class="tree-link" type="button" data-open-file="${P.escapeHtml(s.path)}"><bdi dir="ltr">${P.escapeHtml(s.path)}:${s.line}</bdi></button>
+            </div>
+            <code class="snippet" dir="ltr">${P.escapeHtml(s.snippet)}</code>
           </li>`).join('')}</ul>`
       : `<div class="empty-state text-ok">${P.escapeHtml(t('shortcutsClean'))}</div>`;
 
@@ -181,13 +185,13 @@
       : `<code>${P.escapeHtml(g.remoteUrl || '—')}</code>`;
 
     const commitsTable = commits.length > 0
-      ? `<table class="data-table"><thead><tr><th>Hash</th><th>Type</th><th>Message</th><th>Author</th><th>Date</th></tr></thead><tbody>
+      ? `<table class="data-table"><thead><tr><th>${P.escapeHtml(t('colHash'))}</th><th>${P.escapeHtml(t('colType'))}</th><th>${P.escapeHtml(t('colMessage'))}</th><th>${P.escapeHtml(t('colAuthor'))}</th><th>${P.escapeHtml(t('colDate'))}</th></tr></thead><tbody>
           ${commits.map((c) => `<tr>
-            <td><button class="tree-link" type="button" data-open-commit="${P.escapeHtml(c.hash)}">${P.escapeHtml(c.hash)}</button></td>
-            <td><span class="${commitBadgeClass(c.type)}">${P.escapeHtml(c.type)}</span></td>
-            <td>${P.escapeHtml(c.subject)}</td>
-            <td class="muted-note">${P.escapeHtml(c.author)}</td>
-            <td class="mono muted-note">${P.escapeHtml(c.date)}</td>
+            <td class="nowrap"><button class="tree-link" type="button" data-open-commit="${P.escapeHtml(c.hash)}"><bdi dir="ltr">${P.escapeHtml(c.hash)}</bdi></button></td>
+            <td class="nowrap"><span class="${commitBadgeClass(c.type)}">${P.escapeHtml(c.type)}</span></td>
+            <td><bdi dir="auto">${P.escapeHtml(c.subject)}</bdi></td>
+            <td class="muted-note nowrap">${P.escapeHtml(c.author)}</td>
+            <td class="mono muted-note nowrap" dir="ltr">${P.escapeHtml(c.date)}</td>
           </tr>`).join('')}
         </tbody></table>`
       : `<div class="empty-state">${P.escapeHtml(t('noData'))}</div>`;
@@ -291,20 +295,22 @@
     const scriptsHtml = (snap.scripts || []).length > 0
       ? `<ul class="cmd-list">${snap.scripts.map((s) => `
           <li class="cmd-item">
-            <code>npm run ${P.escapeHtml(s.name)}</code>
-            <span class="muted-note mono">${P.escapeHtml(s.cmd)}</span>
+            <code dir="ltr">npm run ${P.escapeHtml(s.name)}</code>
+            <span class="muted-note mono" dir="ltr">${P.escapeHtml(s.cmd)}</span>
             <button class="btn btn-sm" type="button" data-copy-cmd="npm run ${P.escapeHtml(s.name)}">${P.escapeHtml(t('copyCmd'))}</button>
           </li>`).join('')}</ul>`
-      : `<div class="muted-note">${P.escapeHtml(t('noData'))}</div>`;
+      : `<div class="muted-note">${P.escapeHtml(t('noScripts'))}</div>`;
 
     const coreLinks = ['SRS.md', 'AGENTS.md', 'README.md', 'project_management/MASTER_PLAN.md', 'project_management/ACTIVE_CONTEXT.md']
-      .map((p) => `<li><button class="tree-link" type="button" data-open-file="${p}">${p}</button></li>`).join('');
+      .map((p) => `<li class="tree-file-row"><button class="tree-file-btn" type="button" data-open-file="${p}"><span class="ext-pill ext-md">md</span><bdi dir="ltr" class="tree-file-name">${p}</bdi></button></li>`).join('');
+    const extraSpecs = [...(snap.trees.specsTree || []), ...(snap.trees.adrsTree || [])];
+    const extraSpecsHtml = extraSpecs.length > 0 ? renderTree(extraSpecs, state.searchQuery, t('linesUnit'), state.openDirs, 'specs') : '';
 
     return `
       <div class="section-head"><h2>${P.escapeHtml(t('memory'))}</h2></div>
       <div class="bento-grid">
         <div class="panel"><h3>${P.escapeHtml(t('memoryTitle'))}</h3>${renderTree(snap.trees.memoryTree, state.searchQuery, t('linesUnit'), state.openDirs, 'mem')}</div>
-        <div class="panel"><h3>${P.escapeHtml(t('specsTitle'))}</h3><ul class="tree-group tree-root">${coreLinks}</ul>${renderTree([...(snap.trees.specsTree || []), ...(snap.trees.adrsTree || [])], state.searchQuery, t('linesUnit'), state.openDirs, 'specs')}</div>
+        <div class="panel"><h3>${P.escapeHtml(t('specsTitle'))}</h3><ul class="tree-group tree-root">${coreLinks}</ul>${extraSpecsHtml}</div>
       </div>
       <div class="panel"><h3>${P.escapeHtml(t('commandsTitle'))}</h3>${scriptsHtml}</div>`;
   }
