@@ -10,7 +10,7 @@ Ensure every added or modified capability produces the required formal engineeri
    - **Small Bug Fix / Minor Adjustment:** Update `CHANGELOG.md` and only the directly affected section of `SRS.md` or contract docs (no empty boilerplate files).
    - **New Feature / Behavioral Modification:**
      1. Update `SRS.md` with the new or changed functional/non-functional requirements.
-     2. Create or update a dedicated `Feature Spec` under `docs/specs/<feature-slug>/spec.md` (scope, edge cases, acceptance criteria, impact analysis).
+     2. Create a `Feature Spec` under `docs/specs/<feature-slug>/spec.md` for new features—or draft a concise **Spec Delta** (`Added / Modified / Removed`) when iterating on an existing feature, then fold it cleanly into `spec.md` upon closure.
      3. Create or update affected `API / Schema Contracts` and data model docs.
      4. Record the change in `CHANGELOG.md`.
    - **Architectural / Schema / Security / Dependency Shift:** All of the above PLUS update `ARCHITECTURE.md` and write a numbered `ADR` under `docs/adrs/`.

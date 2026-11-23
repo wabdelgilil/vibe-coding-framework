@@ -26,4 +26,10 @@
 - [ ] <Observable, verifiable criterion 1>
 - [ ] <Negative/unauthorized path criterion 2>
 - [ ] `SRS.md`, API contracts, and `CHANGELOG.md` updated in sync.
+
+## 5. Spec Delta (For Existing-Feature Modifications Only)
+<!-- Use this block when iterating on an existing spec, then fold approved changes into Sections 2–4 upon closure. -->
+- **Added:** <New fields, states, or behaviors>
+- **Modified:** <Changed rules or edge-case handling>
+- **Removed:** <Deprecated behaviors or contracts>
 ```

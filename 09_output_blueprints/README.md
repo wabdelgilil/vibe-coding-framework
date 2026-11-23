@@ -13,6 +13,7 @@
 | Architecture Decision Record (`docs/adrs/ADR-NNN-<slug>.md`) | [template_adr.md](template_adr.md) |
 | Standard changelog (`CHANGELOG.md`) | [template_changelog.md](template_changelog.md) |
 | Front-door active radar (`project_management/MASTER_PLAN.md`) | [template_master_plan.md](template_master_plan.md) |
+| Live session handover (`project_management/ACTIVE_CONTEXT.md`) | [template_active_context.md](template_active_context.md) |
 | Hierarchical initiative plan folder (`project_management/plans/<slug>/`) | [template_plan_tree.md](template_plan_tree.md) |
 | Technical debt ledger (`project_management/TECH_DEBT_REGISTER.md`) | [template_tech_debt_register.md](template_tech_debt_register.md) |
 | Domain learning memory tree (`docs/memory/`) | [template_learning_memory.md](template_learning_memory.md) |

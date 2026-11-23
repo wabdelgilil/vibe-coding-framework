@@ -11,9 +11,10 @@ Eliminate context drift and memory loss across sessions by storing all project d
    - **Specification (`SRS.md`):** Living functional, non-functional, and architectural baseline.
    - **Decision Log (`docs/adrs/`):** Numbered ADRs preserving *why* major choices were made.
    - **Active Radar (`project_management/MASTER_PLAN.md`):** Current active initiatives only.
-   - **Lessons & Debt (`docs/ANTI_PATTERNS.md` + `project_management/TECH_DEBT_REGISTER.md`):** Recorded project-specific mistakes never to repeat, plus tracked debt.
+   - **Live Session Handover (`project_management/ACTIVE_CONTEXT.md`, ≤ 30 lines):** Exact current focus, last modified files, open blockers, and immediate next step updated at every session pause.
+   - **Lessons & Debt (`docs/memory/` + `project_management/TECH_DEBT_REGISTER.md`):** Learned preferences, past anti-patterns, and tracked debt.
 2. **Immediate Persistence:** Any architectural decision, status transition, blocker, or recurring pitfall MUST be written to its repository file in the same turn—never left solely in conversation memory.
-3. **30-Second Session Handover:** A brand-new AI session reading Tier-0 Rules + `MASTER_PLAN.md` + the active phase file MUST be able to resume work accurately without asking the user to re-explain history.
+3. **10-Second Session Handover:** A brand-new AI session reading Tier-0 Rules + `ACTIVE_CONTEXT.md` + `MASTER_PLAN.md` MUST be able to resume work accurately without asking the user to re-explain history.
 
 ## Prohibited Anti-Patterns
 - Relying on chat scrollback to remember schema decisions, naming rules, or task progress.

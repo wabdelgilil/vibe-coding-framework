@@ -33,6 +33,11 @@ Compile a lean, always-in-context Tier-0 rules file (strictly **≤ 90 lines / ~
 9. **Living Docs Sync:** Update `SRS.md`, specs, contracts, and `CHANGELOG.md` atomically with code.
 10. **Clean Workspace:** 100% relative links; keep `MASTER_PLAN.md` lean; physically archive closed plans.
 
+## Action Boundaries (3-Zone Matrix)
+- **Always:** Run native lint/type/test gates, use relative links, update `ACTIVE_CONTEXT.md` and living docs.
+- **Ask First:** Add third-party dependencies, alter DB schemas/migrations, or change architecture/pricing logic.
+- **Never:** Touch production data/secrets directly, delete failing tests, or commit unverified code.
+
 ## On-Demand Trigger Routing Table
 | When you are about to... | Read ONLY this file first |
 | :--- | :--- |
