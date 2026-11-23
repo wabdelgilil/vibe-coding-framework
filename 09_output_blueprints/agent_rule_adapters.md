@@ -45,7 +45,12 @@ Compile a lean, always-in-context Tier-0 rules file (strictly **≤ 90 lines / ~
 | Touch auth, secrets, or external inputs | `06_security_and_reliability/README.md` |
 | Add/modify features (standard docs) | `05_documentation/standard_artifacts_per_feature.md` |
 | Close any task or audit | `01_anti_shortcuts/proof_of_work.md` + `adversarial_review.md` |
+| Receive a recurring user preference | `07_project_management_and_context/continuous_learning_memory.md` |
+| Touch UI, stack, or domain conventions | `docs/memory/INDEX.md` (project-local learned preferences) |
 | Onboard an existing codebase | `08_adoption_and_onboarding/brownfield_three_stage_audit.md` |
+
+## Standing User Preferences (Bucket A — Max 10 One-Liners)
+<!-- Pin only universal every-turn preferences here; demote domain-specific items to docs/memory/. -->
 ```
 
 ## Prohibited Anti-Patterns

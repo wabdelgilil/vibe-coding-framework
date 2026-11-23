@@ -12,3 +12,4 @@
 | `PM-05` | Structuring `MASTER_PLAN.md` and per-initiative hierarchical plan trees | [master_plan_and_plan_trees.md](master_plan_and_plan_trees.md) |
 | `PM-06` | Handling mid-task new requests or archiving closed plans | [scope_triage_and_archiving.md](scope_triage_and_archiving.md) |
 | `PM-07` | Enforcing clean root, relative paths, naming, and Git hygiene | [workspace_hygiene.md](workspace_hygiene.md) |
+| `PM-08` | Persisting recurring user preferences across sessions without context bloat | [continuous_learning_memory.md](continuous_learning_memory.md) |
