@@ -41,6 +41,7 @@ Compile a lean, always-in-context Tier-0 rules file (strictly **≤ 90 lines / ~
 ## On-Demand Trigger Routing Table
 | When you are about to... | Read ONLY this file first |
 | :--- | :--- |
+| Start a session or resume after auto-compaction | `project_management/ACTIVE_CONTEXT.md` (+ run `git status` reconcile) |
 | Plan a feature or multi-file change | `07_project_management_and_context/planning_rigor_and_pre_code_gate.md` |
 | Order or prioritize 2+ tasks | `07_project_management_and_context/prioritization_and_dependency_ordering.md` |
 | Debug a failure or weigh a quick fix | `01_anti_shortcuts/root_cause_protocol.md` + `long_term_and_standards_gate.md` |

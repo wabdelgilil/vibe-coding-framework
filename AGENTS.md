@@ -23,6 +23,7 @@
 ## On-Demand Trigger Routing Table
 | When you are about to... | Read ONLY this file first |
 | :--- | :--- |
+| Start a session or resume after auto-compaction | `project_management/ACTIVE_CONTEXT.md` (+ run `git status` reconcile) |
 | Plan a feature or multi-file change | `07_project_management_and_context/planning_rigor_and_pre_code_gate.md` |
 | Drive a feature lifecycle (auto-scaled) | `07_project_management_and_context/lifecycle_and_gates.md` |
 | Order or prioritize 2+ tasks | `07_project_management_and_context/prioritization_and_dependency_ordering.md` |

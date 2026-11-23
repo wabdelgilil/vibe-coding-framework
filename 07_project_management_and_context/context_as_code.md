@@ -11,15 +11,19 @@ Eliminate context drift and memory loss across sessions by storing all project d
    - **Specification (`SRS.md`):** Living functional, non-functional, and architectural baseline.
    - **Decision Log (`docs/adrs/`):** Numbered ADRs preserving *why* major choices were made.
    - **Active Radar (`project_management/MASTER_PLAN.md`):** Current active initiatives only.
-   - **Live Session Handover (`project_management/ACTIVE_CONTEXT.md`, ≤ 30 lines):** Exact current focus, last modified files, open blockers, and immediate next step updated at every session pause.
+   - **Live Session Handover (`project_management/ACTIVE_CONTEXT.md`, ≤ 30 lines):** Active phase, modified files, negative constraints / rejected approaches (max 3 bullets), blocker, resume check command, and exact next step.
    - **Lessons & Debt (`docs/memory/` + `project_management/TECH_DEBT_REGISTER.md`):** Learned preferences, past anti-patterns, and tracked debt.
-2. **Immediate Persistence:** Any architectural decision, status transition, blocker, or recurring pitfall MUST be written to its repository file in the same turn—never left solely in conversation memory.
-3. **10-Second Session Handover:** A brand-new AI session reading Tier-0 Rules + `ACTIVE_CONTEXT.md` + `MASTER_PLAN.md` MUST be able to resume work accurately without asking the user to re-explain history.
+2. **Write-Through Persistence (Auto-Compaction Immunity):** Never rely on end-of-session memory dumps; auto-compaction can fire without warning. Update disk state in the **same turn** at 3 events only:
+   - *Decision or preference locked:* Persist immediately to `SRS.md`, `docs/adrs/`, or `docs/memory/`.
+   - *Approach tested and rejected (Dead End):* Record 1 line under `Negative Constraints & Rejected Approaches` in `ACTIVE_CONTEXT.md` so post-compaction sessions never loop.
+   - *Phase completed or blocked:* Overwrite `Active Phase`, `Next Step`, and `Resume Check Command` in `ACTIVE_CONTEXT.md`.
+   - *(Optional Native Hook):* If the host tool supports `PreCompact` or `SessionStart` hooks, wire them to flush/re-read `ACTIVE_CONTEXT.md` automatically.
+3. **Post-Compaction Ground-Truth Reconcile:** Upon any fresh session or auto-compaction resume, read `ACTIVE_CONTEXT.md` AND run a light filesystem reconcile (`git status` or targeted file read) before editing—never trust compacted memory for file contents.
 
 ## Prohibited Anti-Patterns
-- Relying on chat scrollback to remember schema decisions, naming rules, or task progress.
-- Repeating the same project-specific mistake across sessions because it was never logged in `ANTI_PATTERNS.md`.
+- Relying on chat scrollback or lossy auto-compaction summaries for constraints, rejected approaches, or file paths.
+- Repeating a dead-end approach or project mistake across sessions because it was never persisted.
 
 ## Verification & Audit Checklist
-- [ ] All decisions, status updates, and recurring lessons persisted in version-controlled files.
-- [ ] New session can resume active work cleanly from `MASTER_PLAN.md` and the active phase file.
+- [ ] Decisions, rejected approaches, and phase transitions persisted via Write-Through in the same turn.
+- [ ] New or post-compaction session reconciles `ACTIVE_CONTEXT.md` against actual repo state (`git status` / targeted read) before editing.

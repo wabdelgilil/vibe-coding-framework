@@ -5,11 +5,14 @@
 ```markdown
 # Active Session Context
 
-> **Rule:** Keep strictly <= 30 lines. Overwrite in place at every pause/checkpoint so any new session resumes in 10 seconds.
+> **Rule:** Keep strictly <= 30 lines. Update via Write-Through (decision / dead-end / phase change). On resume or post-compaction, read this file AND run the Resume Check Command before editing.
 
 - **Active Initiative & Phase:** `<NN-slug>` — [phase_XX.md](plans/<NN-slug>/02_phases/phase_XX.md)
 - **Last Updated:** YYYY-MM-DD
 - **Recently Modified Files:** `<path1>`, `<path2>`
 - **Current Blocker / Open Decision:** None (or exact blocker)
+- **Negative Constraints & Rejected Approaches (Max 3):**
+  - *Rejected:* `<Approach X>` — failed because `<reason Y>` (do not retry).
+- **Resume Check Command:** `git status -sb` (or targeted test/verify command)
 - **Immediate Next Step:** <Exact single next action to execute upon resume>
 ```

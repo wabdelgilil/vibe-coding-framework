@@ -1,7 +1,7 @@
 # System Requirements Specification (SRS)
 
 > **Project:** Pure-Markdown AI Engineering Governance Framework (Working Title: `vibe-coding-framework`)  
-> **Version:** 1.5.0 (Self-Hosted Dogfooding + Zero-Command Auto-Scaled Lifecycle)  
+> **Version:** 1.5.1 (Auto-Compaction Survival: Write-Through State & Ground-Truth Reconcile)  
 > **Status:** Active Specification  
 
 ---
