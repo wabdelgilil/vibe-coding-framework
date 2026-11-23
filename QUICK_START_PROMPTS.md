@@ -42,3 +42,15 @@ Read `01_anti_shortcuts/adversarial_review.md` and `01_anti_shortcuts/proof_of_w
   `suggestion (non-blocking) [RULE-ID] (<file>:<line>): <summary>`
 - Report both automated check outputs and the exact files you directly inspected.
 ```
+
+---
+
+## 4. Upgrade / Sync Existing Project to Latest Framework Version
+
+```text
+Sync this repository's governance setup with the latest version of https://github.com/wabdelgilil/vibe-coding-framework (check INDEX.md and 09_output_blueprints/agent_rule_adapters.md):
+1. Compare our current Tier-0 rules file and `project_management/` / `docs/` governance structure against the latest upstream framework.
+2. Merge any new Non-Negotiable Laws, Trigger Routing Table rows, or missing governance templates (such as `docs/memory/`) while keeping the primary Tier-0 file strictly <= 90 lines.
+3. STRICTLY PRESERVE all existing project-specific `Standing User Preferences`, `docs/memory/` entries, `SRS.md`, `ADRs`, `MASTER_PLAN.md`, and active plans—never overwrite custom content or touch application source code.
+4. Verify zero broken relative links and summarize the exact upgrades applied.
+```
