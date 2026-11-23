@@ -19,3 +19,6 @@ Desktop.ini
 *.tmp
 *.bak
 *.log
+
+# Local Portal Launcher Preference
+portal/.portal-pref

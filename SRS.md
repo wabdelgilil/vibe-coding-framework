@@ -1,7 +1,7 @@
 # System Requirements Specification (SRS)
 
 > **Project:** Pure-Markdown AI Engineering Governance Framework (Working Title: `vibe-coding-framework`)  
-> **Version:** 1.5.1 (Auto-Compaction Survival: Write-Through State & Ground-Truth Reconcile)  
+> **Version:** 1.6.0 (Optional Isolated Local Human Portal)  
 > **Status:** Active Specification  
 
 ---
@@ -37,6 +37,7 @@ Instead of shipping runtime scripts or CLI tools, the framework operates as a **
 | **FR-06** | **Always Strict Quality + Proportional Ceremony** | Code quality, security, anti-shortcut, and verification standards are strictly enforced on every change; planning and documentation depth scales proportionally to change size. |
 | **FR-07** | **Hierarchical Project Management Blueprint** | `MASTER_PLAN.md` serves strictly as an active-only front door linking to per-initiative plan folders (`plans/<slug>/`) whose internal file tree scales with complexity, with physical archival of closed folders into `archive/`. |
 | **FR-08** | **Greenfield & 3-Stage Brownfield Flows** | Dedicated onboarding paths for starting from scratch and for auditing/modernizing legacy repositories via a 3-stage maturity model (Standard → 1–5 CMMI Audit → Wave Remediation). |
+| **FR-09** | **Optional Local Human Portal (`portal/`)** | Strictly isolated, zero-dependency human-facing local web viewer (`portal/index.html`, `server.mjs`, `start_portal.bat`/`.sh`) bound to `127.0.0.1` (with direct `file://` folder-picker fallback and gitignored `.portal-pref`), never loaded into AI agent context. |
 
 ---
 

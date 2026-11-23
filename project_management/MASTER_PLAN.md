@@ -6,7 +6,7 @@
 
 ## Active Initiatives
 
-*No active initiatives — Framework v1 Foundation is complete and archived in [COMPLETED_WORK.md](COMPLETED_WORK.md).*
+*No active initiatives — all milestones through `v1.6.0` are complete and archived in [COMPLETED_WORK.md](COMPLETED_WORK.md).*
 
 ---
 

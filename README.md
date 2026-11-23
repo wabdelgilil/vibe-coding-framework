@@ -81,6 +81,14 @@ Instead of flooding your context window, the framework compiles a **~30-line Tie
 
 ---
 
+## Optional Local Human Portal (`portal/`)
+
+Want a clean visual dashboard for your project's `MASTER_PLAN.md`, `ACTIVE_CONTEXT.md`, hierarchical plan trees, tech debt, and `SRS.md` without spending a single agent token on chat charts?
+- Copy the optional `portal/` folder into your project (isolated from AI agents; zero `npm install` or `node_modules`).
+- Run `portal/start_portal.bat` (Windows) or `./portal/start_portal.sh` (macOS/Linux): it auto-detects Node.js/Python, binds strictly to `127.0.0.1`, or falls back to zero-install direct browser mode (`File System Access API`), saving your preference locally in gitignored `portal/.portal-pref` (pass `--reset` to change).
+
+---
+
 ## Contributing & License
 
 Open-source under the [MIT License](LICENSE). Contributions are welcome—see [CONTRIBUTING.md](CONTRIBUTING.md) for link, line-budget, and anatomy standards.

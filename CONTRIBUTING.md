@@ -6,7 +6,7 @@ Contributions that sharpen engineering rigor, fix gaps discovered in real-world 
 
 Every Pull Request is validated automatically by [`.github/workflows/verify-links.yml`](.github/workflows/verify-links.yml) and reviewed against these rules:
 
-1. **Pure Markdown Only:** Keep the framework 100% pure Markdown with zero runtime scripts or build dependencies.
+1. **Pure Markdown Agent Core:** Keep all Agent Pillars (`01`–`09`) 100% pure Markdown with zero runtime scripts or build dependencies. The optional human-facing `portal/` viewer must remain zero-dependency vanilla HTML/CSS/JS with no `node_modules`.
 2. **Language-Agnostic Core:** Do not hardcode specific programming languages or vendor libraries into Pillars `01`–`08`.
 3. **Strict Context Budget:**
    - Pillar & sub-branch routers (`README.md` / `INDEX.md`) MUST stay **≤ 35 lines**.

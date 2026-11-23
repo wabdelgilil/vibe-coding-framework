@@ -14,6 +14,7 @@ Establish complete engineering governance, deterministic tooling, living documen
    - Follow [agent_rule_adapters.md](../09_output_blueprints/agent_rule_adapters.md) to emit one primary Tier-0 Micro-Kernel + Trigger Table (≤ 90 lines).
    - Scaffold clean root files (`README.md`, `SRS.md`, `CHANGELOG.md`, `.gitignore`, `.env.example`), `docs/` (`ARCHITECTURE.md`, `specs/`, `adrs/`, `memory/`, `ANTI_PATTERNS.md`), and `project_management/` (`MASTER_PLAN.md`, `ACTIVE_CONTEXT.md`, `COMPLETED_WORK.md`, `TECH_DEBT_REGISTER.md`, `plans/`, `archive/`).
    - Write the confirmed hierarchical plan tree under `project_management/plans/01-<slug>/` and record `ADR-001`.
+   - *(Optional Human Viewer):* Only if the user wants a local visual dashboard, copy the framework's `portal/` folder into the target project and add `portal/.portal-pref` to `.gitignore`.
 3. **Stage C — Wire Native Deterministic Tooling:** Follow [deterministic_tooling_mandate.md](../02_clean_code/deterministic_tooling_mandate.md) to configure the stack's formatter, strict linter, strict type checker, test runner, dependency audit, and unified verification commands before writing feature code.
 
 ## Prohibited Anti-Patterns

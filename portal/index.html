@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Governance Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1 id="project-title">Project Portal</h1>
+      <span id="mode-badge" class="badge">Connecting...</span>
+    </div>
+    <div class="topbar-actions">
+      <button id="btn-folder" class="btn btn-primary hidden" type="button"></button>
+      <button id="btn-refresh" class="btn" type="button"></button>
+      <button id="btn-lang" class="btn" type="button">العربية</button>
+      <button id="btn-theme" class="btn" type="button"></button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar" aria-label="Portal Navigation">
+      <nav id="nav-list" class="nav-list">
+        <button class="nav-item active" data-view="overview" type="button"></button>
+        <button class="nav-item" data-view="plans" type="button"></button>
+        <button class="nav-item" data-view="debt" type="button"></button>
+        <button class="nav-item" data-view="completed" type="button"></button>
+        <button class="nav-item" data-view="docs" type="button"></button>
+      </nav>
+      <div class="sidebar-footer">
+        <div id="sync-meta" class="meta-line"></div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <div id="banner" class="banner hidden" role="status"></div>
+      <section id="view-root" class="view-root" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <div id="reader-drawer" class="drawer hidden" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <div class="drawer-panel">
+      <header class="drawer-header">
+        <div class="drawer-title-wrap">
+          <h2 id="drawer-title"></h2>
+          <code id="drawer-path" class="path-code"></code>
+        </div>
+        <button id="drawer-close" class="btn" type="button"></button>
+      </header>
+      <article id="drawer-body" class="md-content"></article>
+    </div>
+  </div>
+
+  <script src="parser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

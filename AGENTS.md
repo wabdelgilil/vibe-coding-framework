@@ -34,5 +34,5 @@
 
 ## Standing User Preferences (Bucket A — Max 10 One-Liners)
 - **Zero Sycophancy:** Never open with empty praise; always evaluate and state real downsides and trade-offs.
-- **Pure Markdown Only:** Keep this framework 100% pure Markdown with zero runtime scripts or CLI dependencies.
+- **Pure Markdown Agent Core:** Keep all Agent Pillars (`01–09`) 100% pure Markdown with zero runtime dependencies; `portal/` is an isolated, optional human-facing viewer never loaded by agents.
 - **Micro-Files Only:** Keep routers ≤ 35 lines, micro-leaves ≤ 120 lines, and Tier-0 ≤ 90 lines.
