@@ -1,20 +1,22 @@
 :root {
-  --bg: #f4f6f9;
+  --bg: #eef2fb;
   --surface: #ffffff;
-  --surface-subtle: #eef2f6;
-  --border: #dfe5ee;
+  --surface-subtle: #e6ecf8;
+  --border: #d2dcf0;
   --ink: #0f172a;
-  --muted: #526074;
-  --accent: #1d4ed8;
-  --accent-soft: #eff6ff;
+  --muted: #475569;
+  --accent: #2563eb;
+  --accent-soft: #dbeafe;
   --accent-ink: #ffffff;
-  --ok: #0d9488;
-  --ok-soft: #f0fdfa;
+  --ok: #059669;
+  --ok-soft: #d1fae5;
   --warn: #d97706;
-  --warn-soft: #fffbeb;
-  --danger: #dc2626;
-  --danger-soft: #fef2f2;
-  --shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --warn-soft: #fef3c7;
+  --danger: #e11d48;
+  --danger-soft: #ffe4e6;
+  --violet: #7c3aed;
+  --violet-soft: #ede9fe;
+  --shadow: 0 2px 6px rgba(37, 99, 235, 0.07);
   --font-ui: "Segoe UI", "Inter", system-ui, -apple-system, Tahoma, sans-serif;
   --font-mono: "JetBrains Mono", Consolas, ui-monospace, monospace;
 }
@@ -61,6 +63,7 @@ body {
   gap: 14px;
   padding: 12px 22px;
   background: var(--surface);
+  border-top: 3px solid var(--accent);
   border-bottom: 1px solid var(--border);
 }
 
@@ -69,7 +72,7 @@ body {
   width: 10px;
   height: 30px;
   border-radius: 4px;
-  background: var(--accent);
+  background: linear-gradient(180deg, var(--accent), var(--ok));
   flex-shrink: 0;
 }
 .brand-text { min-width: 0; }
@@ -199,9 +202,13 @@ body {
   padding: 15px 16px;
   background: var(--surface);
   border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
   border-radius: 10px;
   box-shadow: var(--shadow);
 }
+.kpi-box:nth-child(2) { border-top-color: var(--danger); }
+.kpi-box:nth-child(3) { border-top-color: var(--warn); }
+.kpi-box:nth-child(4) { border-top-color: var(--ok); }
 .kpi-value { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.15; }
 .kpi-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
@@ -222,8 +229,15 @@ body {
 }
 .bento-grid .panel { margin-bottom: 0; }
 .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
-.panel h3 { margin: 0 0 12px; font-size: 15px; font-weight: 650; }
-.panel-head h3 { margin: 0; }
+.panel h3 {
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--surface-subtle);
+  font-size: 15px;
+  font-weight: 650;
+  color: var(--accent);
+}
+.panel-head h3 { margin: 0; padding-bottom: 0; border-bottom: 0; }
 
 .stack-track { display: flex; height: 10px; border-radius: 999px; overflow: hidden; background: var(--surface-subtle); margin-bottom: 10px; }
 .stack-seg { height: 100%; }
