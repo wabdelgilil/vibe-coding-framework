@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Governance Portal</title>
+  <title>Developer Governance Radar</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -11,11 +11,10 @@
     <div class="brand">
       <span class="brand-mark" aria-hidden="true"></span>
       <div class="brand-text">
-        <h1 id="project-title">Project Portal</h1>
+        <h1 id="project-title">Developer Radar</h1>
         <div class="brand-meta">
           <span id="mode-badge" class="badge">Connecting...</span>
           <span id="git-badge" class="badge hidden"></span>
-          <span id="version-badge" class="badge badge-accent hidden"></span>
         </div>
       </div>
     </div>
@@ -33,11 +32,11 @@
   <div class="shell">
     <aside class="sidebar" aria-label="Portal Navigation">
       <nav id="nav-list" class="nav-list">
-        <button class="nav-item active" data-view="overview" type="button"></button>
-        <button class="nav-item" data-view="plans" type="button"></button>
+        <button class="nav-item active" data-view="radar" type="button"></button>
+        <button class="nav-item" data-view="git" type="button"></button>
+        <button class="nav-item" data-view="trees" type="button"></button>
         <button class="nav-item" data-view="debt" type="button"></button>
-        <button class="nav-item" data-view="completed" type="button"></button>
-        <button class="nav-item" data-view="docs" type="button"></button>
+        <button class="nav-item" data-view="memory" type="button"></button>
       </nav>
       <div class="sidebar-footer">
         <div id="tier0-meter" class="meter-box hidden"></div>
@@ -68,6 +67,7 @@
   <script src="i18n.js"></script>
   <script src="parser.js"></script>
   <script src="charts.js"></script>
+  <script src="views.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -289,6 +289,41 @@ body {
 .tree-link:hover { text-decoration: underline; }
 
 .path-code, code { font-family: var(--font-mono); font-size: 12px; padding: 1px 5px; border-radius: 4px; background: var(--surface-subtle); }
+.mono { font-family: var(--font-mono); font-size: 12px; }
+.text-ok { color: var(--ok); }
+.text-warn { color: var(--warn); }
+.text-danger { color: var(--danger); }
+.spacer { height: 14px; }
+.btn-sm { padding: 3px 8px; font-size: 12px; }
+
+.change-list, .shortcut-list, .cmd-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.change-item { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+.change-item:last-child, .shortcut-item:last-child, .cmd-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.diff-nums { margin-inline-start: auto; display: flex; gap: 6px; }
+.num-add { color: var(--ok); font-weight: 600; }
+.num-del { color: var(--danger); font-weight: 600; }
+
+.shortcut-item { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+.snippet { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+
+.size-list { display: flex; flex-direction: column; gap: 10px; }
+.size-head, .prog-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 12.5px; }
+.prog-wrap { margin-bottom: 14px; }
+
+.tree-file-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.tree-lines { color: var(--muted); font-size: 11.5px; }
+
+.cmd-item { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.cmd-item .btn-sm { margin-inline-start: auto; }
+
+.diff-view { font-family: var(--font-mono); font-size: 12px; line-height: 1.5; border: 1px solid var(--border); border-radius: 6px; overflow-x: auto; }
+.diff-view div { padding: 1px 10px; white-space: pre; }
+.diff-meta { background: var(--surface-subtle); color: var(--muted); font-weight: 600; }
+.diff-hunk { background: var(--accent-soft); color: var(--accent); }
+.diff-add { background: var(--ok-soft); color: var(--ok); }
+.diff-del { background: var(--danger-soft); color: var(--danger); }
+.diff-ctx { color: var(--ink); }
+
 .muted-note { font-size: 12.5px; color: var(--muted); }
 .empty-state { padding: 24px 18px; text-align: center; color: var(--muted); background: var(--surface-subtle); border: 1px dashed var(--border); border-radius: 8px; }
 

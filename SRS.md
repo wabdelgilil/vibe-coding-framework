@@ -1,7 +1,7 @@
 # System Requirements Specification (SRS)
 
 > **Project:** Pure-Markdown AI Engineering Governance Framework (Working Title: `vibe-coding-framework`)  
-> **Version:** 1.6.0 (Optional Isolated Local Human Portal)  
+> **Version:** 1.7.0 (Developer Live Radar Portal: Diffs, Anti-Shortcut Scan, Git Sync & Dual Trees)  
 > **Status:** Active Specification  
 
 ---
